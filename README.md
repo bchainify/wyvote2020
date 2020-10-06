@@ -18,7 +18,7 @@ A research paper has also been written on this project
 * Using a unique voterID and auth token, the voter will cast a vote for any one of the candidate selections.
 * After vote casting there are n different steps are carried out for which we have designed a special REST API:
   1. Transaction Verification
-  2. 
+  2. Ballot Tabulation
   3. 
   4.
 
@@ -27,12 +27,6 @@ A research paper has also been written on this project
 * A Web Socket request API for broadcasting the all the requests into P2P network.
 * Handling concurrency by using a mutex lock mechanism.
 
-
-
-## Admin Section:
-* This panel is only reserved for the governing body of an election.
-* Every admin is assigned a unique Election Commission ID for authentication.
-* Result analysis of election is carried out in this section.
 
 ## Architectural Flow Diagrams
 ![](https://lh4.googleusercontent.com/)
