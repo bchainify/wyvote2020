@@ -6,7 +6,7 @@
         dark
         shrink-on-scroll
         prominent
-        src="https://source.unsplash.com/collection/1132326/1600x900"
+        src="https://cdn.discordapp.com/attachments/760351073629634587/762409990085410836/The_ballot_is_stronger_than_the_bullet__Abraham_Lincoln.jpg"
         fade-img-on-scroll
         scroll-target="#scrolling"
         scroll-threshold="200"
