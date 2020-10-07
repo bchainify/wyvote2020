@@ -6,7 +6,7 @@
         dark
         shrink-on-scroll
         prominent
-        src="/images/wyvote2020_site_banner.png"
+        src="@/assets/wyvote2020_site_banner.png"
         fade-img-on-scroll
         scroll-target="#scrolling"
         scroll-threshold="200"
