@@ -6,7 +6,7 @@
         dark
         shrink-on-scroll
         prominent
-        src="https://cdn.discordapp.com/attachments/760351073629634587/762409990085410836/The_ballot_is_stronger_than_the_bullet__Abraham_Lincoln.jpg"
+        src="https://cdn.discordapp.com/attachments/760351073629634587/762057945176997938/WYVOTE2020_3.jpg"
         fade-img-on-scroll
         scroll-target="#scrolling"
         scroll-threshold="200"
@@ -20,7 +20,7 @@
           ></v-img>
         </template>
         <v-toolbar-title>
-          AF Frame
+          WYVote2021 & Beyond
         </v-toolbar-title>
         <div class="flex-grow-1"></div>
         <v-btn text icon depressed :color=colorValue href="https://app.simbachain.com/" target="_blank" @click="colorValue = 'pink'">
