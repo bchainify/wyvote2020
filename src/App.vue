@@ -6,7 +6,7 @@
         dark
         shrink-on-scroll
         prominent
-        src="https://cdn.discordapp.com/attachments/760351073629634587/762057945176997938/WYVOTE2020_3.jpg"
+        src="/images/wyvote2020_site_banner.png"
         fade-img-on-scroll
         scroll-target="#scrolling"
         scroll-threshold="200"
