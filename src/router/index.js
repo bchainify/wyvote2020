@@ -1,23 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import Timeline from '@/components/Timeline'
-import Create from '@/components/Create'
+import Home from '@/components/Home'
+import MyPanel from '@/components/MyPanel'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Timeline',
-      component: Timeline
+      name: 'Home',
+      component: Home,
+      alias: '/Home'
     },
     {
-      path: '/create',
-      name: 'Create',
-      component: Create
+      path: '/myPanel',
+      name: 'MyPanel',
+      component: MyPanel
     }
   ]
 })
