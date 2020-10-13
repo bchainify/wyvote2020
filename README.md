@@ -1,8 +1,8 @@
 # WYVote2020 & beyond!
 WyoHackathon 2020 block chain project
 
-## Research Paper
-A research paper has also been written on this project
+## Whitepaper
+Our project whitepaper can be found here:
 [click here](https://github.com/foolink_paper.pdf)
 
 ## Technology-Stack:
@@ -29,7 +29,7 @@ A research paper has also been written on this project
 
 
 ## Architectural Flow Diagrams
-![](https://lh4.googleusercontent.com/)
+![](https://foodiagrams_site.com/)
 
 
 ## Project setup to run app
