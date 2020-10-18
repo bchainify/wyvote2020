@@ -59,17 +59,6 @@
           </md-radio>
 
           <div class="md-layout-item md-size-100">
-            <strong style="color:#fff176;">Voter</strong>
-          </div>
-
-          <md-radio v-model="role" value="v1">
-            <md-avatar class="role-icon">
-              <img :src="getImgUrl('v1')" alt="V">
-            </md-avatar>
-            {{v1.name}}
-          </md-radio>
-
-          <div class="md-layout-item md-size-100">
             <strong style="color:#fff176;">Election Official</strong>
           </div>
 
@@ -99,7 +88,7 @@
           <router-link to="home">
             <span class="md-title unselectable car" @click="menuVisible = false">
               <md-icon v-if="menuVisible" class="rotate-image">wb_sunny</md-icon>
-                WY Vote 2021 & Beyond!
+                Welcome to Admin portal for WY Vote!
               </span>
             </router-link>
         </md-app-toolbar>
@@ -375,17 +364,11 @@ export default {
       code: 'c4',
       key: 'war fort six from among now wrap mom civil states battle ticket former',
       imgSrc: './assets/img/c2.png'},
-    v1: {
-      name: 'Vivian Jackson',
-      title: 'Voter',
-      code: 'v1',
-      key: 'pave twice fault junior clap actress update salt dance home ugly drift',
-      imgSrc: './assets/img/v1.png'},
     eo1: {
       name: 'Wyoming State Officer 1',
       title: 'Election Official',
       code: 'eo1',
-      key: 'winner liquid live height sentence mammal almost dirt seed beyond picnic adapt',
+      key: 'dwarf coyote unfold oxygen promote potato rate friend place dignity ribbon render',
       imgSrc: './assets/img/eo1.png'}
   }),
   methods: {
