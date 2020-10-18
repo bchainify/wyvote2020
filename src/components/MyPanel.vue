@@ -1,42 +1,42 @@
 <template>
   <div style="overflow-x: hidden;">
-    <div v-if="getUser().title == 'Candidate' || getUser().title == 'Voter'">
+    <div v-if="getUser().title == 'Voter'">
       <div class="md-layout md-gutter md-alignment-left">
-        <div class="md-layout-item md-xlarge-size-40 md-large-size-40 md-medium-size-50 md-small-size-100 md-xsmall-size-100">
-          <md-card class="my-card" md-with-hover>
-            <md-ripple>
-              <md-card-header>
-                <md-card-header-text>
-                  <div class="md-subheading">
-                    <md-radio v-if="getUser().title != 'Voter'" v-model="isRunning" value="sell" v-on:change="changeStatus">sell</md-radio>
-                    <br>
-                    <md-radio v-model="isRunning" value="buy" v-on:change="changeStatus">buy</md-radio>
-                    <br>
-                    <md-radio v-model="isRunning" value="off" v-on:change="changeStatus">off</md-radio>
-                  </div>
+        <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
+          <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
+            <md-table-toolbar>
+              <div class="md-toolbar-section-start">
+                <h2 class="md-title get-title">ELECTION BALLOT</h2>
+              </div>
+            </md-table-toolbar>
+        <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h2 class="md-title get-title">Choose one Candidate below and cast your vote:</h2>
+            </div>
+          </md-table-toolbar>
 
-                </md-card-header-text>
-                <md-card-media>
-                  <md-icon v-if="isRunning == 'off'" class="md-size-3x">
-                    adjust
-                  </md-icon>
-                  <md-icon v-if="isRunning != 'off'" class="md-size-3x rotate-image">
-                    timelapse
-                  </md-icon>
-                  <div class="odometer-container">
-                    <div id="odometer" class="odometer"></div>
-                  </div>
-                </md-card-media>
-              </md-card-header>
-              <md-card-content>
+          <md-table-row slot="md-table-row" v-for="(se, i) in searched" :key="i" @click="queryTxn(se.id)">
+            <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
+            <md-table-cell md-label="Candidate Name" md-sort-by="payload.inputs._name">{{ se.payload.inputs._name }}</md-table-cell>
+            <md-table-cell md-label="Candidate Name" md-sort-by="payload.inputs._name">{{ se.payload.method }}</md-table-cell>
+          </md-table-row>
+          <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
+          <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
 
-              </md-card-content>
+          <div v-if="searched.length === 0">
+            <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
+          </div>
+        </md-table>
+            <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
+            <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
 
-            </md-ripple>
-          </md-card>
+            <div v-if="searched.length === 0">
+              <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
+            </div>
+          </md-table>
         </div>
-
-        <div class="md-layout-item md-xlarge-size-20 md-large-size-20 md-medium-size-30 md-small-size-100 md-xsmall-size-100">
+                <div class="md-layout-item md-xlarge-size-20 md-large-size-20 md-medium-size-30 md-small-size-100 md-xsmall-size-100">
           <md-card class="my-card" md-with-hover>
             <md-ripple>
 
@@ -57,57 +57,544 @@
             </md-ripple>
           </md-card>
         </div>
-
-        <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
-          <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
-            <md-table-toolbar>
-              <div class="md-toolbar-section-start">
-                <h2 class="md-title get-title">{{getUser().title}}'s Transactions</h2>
-              </div>
-            </md-table-toolbar>
-
-            <md-table-row v-if="getUser().title == 'Candidate'" slot="md-table-row" v-for="(se, i) in searched" :key="i">
-              <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
-              <md-table-cell md-label="Type" md-sort-by="payload.inputs.txnType">{{ se.payload.inputs.txnType }}</md-table-cell>
-              <md-table-cell md-label="Amount" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
-              <md-table-cell md-label="Credit Rate" md-sort-by="payload.inputs.creditRate">{{ se.payload.inputs.creditRate }}</md-table-cell>
-              <md-table-cell md-label="Credit Gained/Used" md-sort-by="payload.inputs.txnCredit">{{ se.payload.inputs.txnCredit }}</md-table-cell>
-              <md-table-cell md-label="Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
-            </md-table-row>
-
-            <md-table-row v-if="getUser().title == 'Candidate'" slot="md-table-row" v-for="(se, i) in searched" :key="i">
-              <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
-              <md-table-cell md-label="Type" md-sort-by="payload.inputs.txnType">{{ se.payload.inputs.txnType }}</md-table-cell>
-              <md-table-cell md-label="Amount" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
-              <md-table-cell md-label="Price" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
-              <md-table-cell md-label="Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
-            </md-table-row>
-
-            <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
-            <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
-
-            <div v-if="searched.length === 0">
-              <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
-            </div>
-          </md-table>
-        </div>
       </div>
 
     </div>
 
     <div v-if="getUser().title == 'Election Official'">
-      <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
+            <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
         <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
           <md-table-toolbar>
             <div class="md-toolbar-section-start">
-              <h2 class="md-title get-title">All Transactions</h2>
+              <h2 class="md-title get-title">Smart Contract Address</h2>
+            </div>
+          </md-table-toolbar>
+
+          <md-table-row slot="md-table-row" v-for="(se, i) in searched" v-if="se.payload.method==null" :key="i" @click="queryTxn(se.id)">
+            <md-table-cell md-label="Smart Contract Address" md-sort-by="timestamp">{{ se.receipt.contractAddress}}</md-table-cell>
+            <md-table-cell md-label="Owner Address" md-sort-by="timestamp">{{ se.receipt.from}}</md-table-cell>
+            <md-table-cell md-label="Deployed Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
+          </md-table-row>
+
+          <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
+          <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
+
+          <div v-if="searched.length === 0">
+            <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
+          </div>
+        </md-table>
+
+        <md-dialog class="detailsDialog" :md-active.sync="showDetailsDialog">
+          <md-tabs md-dynamic-height class="md-accent">
+            <md-tab md-label="Basic">
+              <strong style="color:#64dd17;">This Transcation is made by: {{checkedTxn.userRole}}</strong>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label for="userID">User ID</label>
+                      <md-input name="userID" id="userID" v-model="checkedTxn.userID" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="userName">User Name</label>
+                      <md-input name="userName" id="userName" v-model="checkedTxn.userName" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnType">Transaction Type</label>
+                      <md-input name="txnType" id="txnType" v-model="checkedTxn.txnType" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnAmount">Amount</label>
+                      <md-input name="txnAmount" id="txnAmount" v-model="checkedTxn.txnAmount" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="inReading">In Reading</label>
+                      <md-input name="inReading" id="inReading" v-model="checkedTxn.inReading" readonly/>
+                    </md-field>
+                  </div>
+                  <div v-if="checkedTxn.userRole == 'Candidate'" class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="outReading">Out Reading</label>
+                      <md-input name="outReading" id="outReading" v-model="checkedTxn.outReading" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="checkedTxn.userRole == 'Candidate'">
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="creditRate">Credit Rate</label>
+                      <md-input name="creditRate" id="creditRate" v-model="checkedTxn.creditRate" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnCredit">Credit Earned(+)/Used(-)</label>
+                      <md-input name="txnCredit" id="txnCredit" v-model="checkedTxn.txnCredit" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+            </md-tab>
+
+            <md-tab md-label="Transaction">
+              <div class="txn-details" v-if="showTxn">
+                <md-field>
+                  <label>Transaction Hash</label>
+                  <md-input v-model="txnHash" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction From</label>
+                  <md-input v-model="txnFrom" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction To</label>
+                  <md-input v-model="txnTo" readonly></md-input>
+                </md-field>
+                <div class="md-caption">Transaction Status: <strong>{{txnStatus}}</strong></div>
+                <div class="md-caption">Gas Used: <strong>{{gasUsed}}</strong></div>
+              </div>
+              <div class="txn-details" v-else>
+                <div class="md-caption">Please come back later</div>
+                <br>
+                <div class="md-caption">You should see the details then, if the transaction has been completed</div>
+              </div>
+            </md-tab>
+          </md-tabs>
+
+          <md-dialog-actions class="md-layout md-alignment-center-left">
+            <md-button class="md-accent" @click="showDetailsDialog = false">OK</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+
+      </div>
+            <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
+        <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h2 class="md-title get-title">All Transactions2</h2>
             </div>
           </md-table-toolbar>
 
           <md-table-row slot="md-table-row" v-for="(se, i) in searched" :key="i" @click="queryTxn(se.id)">
             <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
-            <md-table-cell md-label="Voter ID" md-sort-by="payload.inputs.userName">{{ se.payload.inputs.userName }}</md-table-cell>
-            <md-table-cell md-label="Candidate Name" md-sort-by="payload.inputs.userRole">{{ se.payload.inputs.userRole }}</md-table-cell>
+            <md-table-cell md-label="Transaction Type" md-sort-by="timestamp">{{ se.payload.method}}</md-table-cell>
+            <md-table-cell md-label="Debug" md-sort-by="timestamp">{{ se.payload }}</md-table-cell>
+            <md-table-cell md-label="Type" md-sort-by="payload.inputs.txnType">{{ se.payload.inputs.txnType }}</md-table-cell>
+            <md-table-cell md-label="Amount" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
+            <md-table-cell md-label="Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
+          </md-table-row>
+
+          <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
+          <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
+
+          <div v-if="searched.length === 0">
+            <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
+          </div>
+        </md-table>
+
+        <md-dialog class="detailsDialog" :md-active.sync="showDetailsDialog">
+          <md-tabs md-dynamic-height class="md-accent">
+            <md-tab md-label="Basic">
+              <strong style="color:#64dd17;">This Transcation is made by: {{checkedTxn.userRole}}</strong>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label for="userID">User ID</label>
+                      <md-input name="userID" id="userID" v-model="checkedTxn.userID" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="userName">User Name</label>
+                      <md-input name="userName" id="userName" v-model="checkedTxn.userName" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnType">Transaction Type</label>
+                      <md-input name="txnType" id="txnType" v-model="checkedTxn.txnType" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnAmount">Amount</label>
+                      <md-input name="txnAmount" id="txnAmount" v-model="checkedTxn.txnAmount" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="inReading">In Reading</label>
+                      <md-input name="inReading" id="inReading" v-model="checkedTxn.inReading" readonly/>
+                    </md-field>
+                  </div>
+                  <div v-if="checkedTxn.userRole == 'Candidate'" class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="outReading">Out Reading</label>
+                      <md-input name="outReading" id="outReading" v-model="checkedTxn.outReading" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="checkedTxn.userRole == 'Candidate'">
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="creditRate">Credit Rate</label>
+                      <md-input name="creditRate" id="creditRate" v-model="checkedTxn.creditRate" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnCredit">Credit Earned(+)/Used(-)</label>
+                      <md-input name="txnCredit" id="txnCredit" v-model="checkedTxn.txnCredit" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+            </md-tab>
+
+            <md-tab md-label="Transaction">
+              <div class="txn-details" v-if="showTxn">
+                <md-field>
+                  <label>Transaction Hash</label>
+                  <md-input v-model="txnHash" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction From</label>
+                  <md-input v-model="txnFrom" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction To</label>
+                  <md-input v-model="txnTo" readonly></md-input>
+                </md-field>
+                <div class="md-caption">Transaction Status: <strong>{{txnStatus}}</strong></div>
+                <div class="md-caption">Gas Used: <strong>{{gasUsed}}</strong></div>
+              </div>
+              <div class="txn-details" v-else>
+                <div class="md-caption">Please come back later</div>
+                <br>
+                <div class="md-caption">You should see the details then, if the transaction has been completed</div>
+              </div>
+            </md-tab>
+          </md-tabs>
+
+          <md-dialog-actions class="md-layout md-alignment-center-left">
+            <md-button class="md-accent" @click="showDetailsDialog = false">OK</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+
+      </div>
+            <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
+        <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h2 class="md-title get-title">All Transactions3</h2>
+            </div>
+          </md-table-toolbar>
+
+          <md-table-row slot="md-table-row" v-for="(se, i) in searched" :key="i" @click="queryTxn(se.id)">
+            <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
+            <md-table-cell md-label="Transaction Type" md-sort-by="timestamp">{{ se.payload.method}}</md-table-cell>
+            <md-table-cell md-label="Debug" md-sort-by="timestamp">{{ se.payload }}</md-table-cell>
+            <md-table-cell md-label="Type" md-sort-by="payload.inputs.txnType">{{ se.payload.inputs.txnType }}</md-table-cell>
+            <md-table-cell md-label="Amount" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
+            <md-table-cell md-label="Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
+          </md-table-row>
+
+          <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
+          <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
+
+          <div v-if="searched.length === 0">
+            <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
+          </div>
+        </md-table>
+
+        <md-dialog class="detailsDialog" :md-active.sync="showDetailsDialog">
+          <md-tabs md-dynamic-height class="md-accent">
+            <md-tab md-label="Basic">
+              <strong style="color:#64dd17;">This Transcation is made by: {{checkedTxn.userRole}}</strong>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label for="userID">User ID</label>
+                      <md-input name="userID" id="userID" v-model="checkedTxn.userID" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="userName">User Name</label>
+                      <md-input name="userName" id="userName" v-model="checkedTxn.userName" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnType">Transaction Type</label>
+                      <md-input name="txnType" id="txnType" v-model="checkedTxn.txnType" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnAmount">Amount</label>
+                      <md-input name="txnAmount" id="txnAmount" v-model="checkedTxn.txnAmount" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="inReading">In Reading</label>
+                      <md-input name="inReading" id="inReading" v-model="checkedTxn.inReading" readonly/>
+                    </md-field>
+                  </div>
+                  <div v-if="checkedTxn.userRole == 'Candidate'" class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="outReading">Out Reading</label>
+                      <md-input name="outReading" id="outReading" v-model="checkedTxn.outReading" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="checkedTxn.userRole == 'Candidate'">
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="creditRate">Credit Rate</label>
+                      <md-input name="creditRate" id="creditRate" v-model="checkedTxn.creditRate" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnCredit">Credit Earned(+)/Used(-)</label>
+                      <md-input name="txnCredit" id="txnCredit" v-model="checkedTxn.txnCredit" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+            </md-tab>
+
+            <md-tab md-label="Transaction">
+              <div class="txn-details" v-if="showTxn">
+                <md-field>
+                  <label>Transaction Hash</label>
+                  <md-input v-model="txnHash" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction From</label>
+                  <md-input v-model="txnFrom" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction To</label>
+                  <md-input v-model="txnTo" readonly></md-input>
+                </md-field>
+                <div class="md-caption">Transaction Status: <strong>{{txnStatus}}</strong></div>
+                <div class="md-caption">Gas Used: <strong>{{gasUsed}}</strong></div>
+              </div>
+              <div class="txn-details" v-else>
+                <div class="md-caption">Please come back later</div>
+                <br>
+                <div class="md-caption">You should see the details then, if the transaction has been completed</div>
+              </div>
+            </md-tab>
+          </md-tabs>
+
+          <md-dialog-actions class="md-layout md-alignment-center-left">
+            <md-button class="md-accent" @click="showDetailsDialog = false">OK</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+
+      </div>
+            <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
+        <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h2 class="md-title get-title">All Transactions4</h2>
+            </div>
+          </md-table-toolbar>
+
+          <md-table-row slot="md-table-row" v-for="(se, i) in searched" :key="i" @click="queryTxn(se.id)">
+            <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
+            <md-table-cell md-label="Transaction Type" md-sort-by="timestamp">{{ se.payload.method}}</md-table-cell>
+            <md-table-cell md-label="Debug" md-sort-by="timestamp">{{ se.payload }}</md-table-cell>
+            <md-table-cell md-label="Type" md-sort-by="payload.inputs.txnType">{{ se.payload.inputs.txnType }}</md-table-cell>
+            <md-table-cell md-label="Amount" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
+            <md-table-cell md-label="Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
+          </md-table-row>
+
+          <h2 class="loading" v-if="loadingBar">Loading Records...</h2>
+          <md-progress-bar class="md-accent loading-bar" md-mode="indeterminate" v-if="loadingBar"></md-progress-bar>
+
+          <div v-if="searched.length === 0">
+            <h2 class="loading" v-if="loadingBar === false">We cannot find any records : (</h2>
+          </div>
+        </md-table>
+
+        <md-dialog class="detailsDialog" :md-active.sync="showDetailsDialog">
+          <md-tabs md-dynamic-height class="md-accent">
+            <md-tab md-label="Basic">
+              <strong style="color:#64dd17;">This Transcation is made by: {{checkedTxn.userRole}}</strong>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-50">
+                    <md-field>
+                      <label for="userID">User ID</label>
+                      <md-input name="userID" id="userID" v-model="checkedTxn.userID" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="userName">User Name</label>
+                      <md-input name="userName" id="userName" v-model="checkedTxn.userName" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnType">Transaction Type</label>
+                      <md-input name="txnType" id="txnType" v-model="checkedTxn.txnType" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnAmount">Amount</label>
+                      <md-input name="txnAmount" id="txnAmount" v-model="checkedTxn.txnAmount" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="inReading">In Reading</label>
+                      <md-input name="inReading" id="inReading" v-model="checkedTxn.inReading" readonly/>
+                    </md-field>
+                  </div>
+                  <div v-if="checkedTxn.userRole == 'Candidate'" class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="outReading">Out Reading</label>
+                      <md-input name="outReading" id="outReading" v-model="checkedTxn.outReading" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="checkedTxn.userRole == 'Candidate'">
+                <div class="md-layout md-gutter">
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="creditRate">Credit Rate</label>
+                      <md-input name="creditRate" id="creditRate" v-model="checkedTxn.creditRate" readonly/>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-size-40">
+                    <md-field>
+                      <label for="txnCredit">Credit Earned(+)/Used(-)</label>
+                      <md-input name="txnCredit" id="txnCredit" v-model="checkedTxn.txnCredit" readonly/>
+                    </md-field>
+                  </div>
+                </div>
+              </div>
+
+            </md-tab>
+
+            <md-tab md-label="Transaction">
+              <div class="txn-details" v-if="showTxn">
+                <md-field>
+                  <label>Transaction Hash</label>
+                  <md-input v-model="txnHash" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction From</label>
+                  <md-input v-model="txnFrom" readonly></md-input>
+                </md-field>
+                <md-field>
+                  <label>Transaction To</label>
+                  <md-input v-model="txnTo" readonly></md-input>
+                </md-field>
+                <div class="md-caption">Transaction Status: <strong>{{txnStatus}}</strong></div>
+                <div class="md-caption">Gas Used: <strong>{{gasUsed}}</strong></div>
+              </div>
+              <div class="txn-details" v-else>
+                <div class="md-caption">Please come back later</div>
+                <br>
+                <div class="md-caption">You should see the details then, if the transaction has been completed</div>
+              </div>
+            </md-tab>
+          </md-tabs>
+
+          <md-dialog-actions class="md-layout md-alignment-center-left">
+            <md-button class="md-accent" @click="showDetailsDialog = false">OK</md-button>
+          </md-dialog-actions>
+        </md-dialog>
+
+      </div>
+      <div class="md-layout-item md-xlarge-size-60 md-large-size-60 md-medium-size-80 md-small-size-100 md-xsmall-size-100">
+        <md-table class="table" v-model="searched" md-sort="name" md-sort-order="asc" md-fixed-header>
+          <md-table-toolbar>
+            <div class="md-toolbar-section-start">
+              <h2 class="md-title get-title">All Transactions5</h2>
+            </div>
+          </md-table-toolbar>
+
+          <md-table-row slot="md-table-row" v-for="(se, i) in searched" :key="i" @click="queryTxn(se.id)">
+            <md-table-cell md-label="No." md-numeric>{{ i + 1 }}</md-table-cell>
+            <md-table-cell md-label="Transaction Type" md-sort-by="timestamp">{{ se.payload.method}}</md-table-cell>
+            <md-table-cell md-label="Debug" md-sort-by="timestamp">{{ se.payload }}</md-table-cell>
             <md-table-cell md-label="Type" md-sort-by="payload.inputs.txnType">{{ se.payload.inputs.txnType }}</md-table-cell>
             <md-table-cell md-label="Amount" md-sort-by="payload.inputs.txnAmount">{{ se.payload.inputs.txnAmount }}</md-table-cell>
             <md-table-cell md-label="Timestamp" md-sort-by="timestamp">{{ (new Date(se.timestamp)).toLocaleString() }}</md-table-cell>
@@ -287,15 +774,15 @@ export default {
     this.stopAll()
     this.cleanAll()
     this.loadingBar = true
-    if (this.getUser().title !== 'Election Official') {
-      this.getUserTxns()
-    } else {
-      this.getAllTxns()
-      let self = this
-      this.urInterval = setInterval(function () {
-        self.getAllTxns()
-      }, 5000)
-    }
+    // if (this.getUser().title !== 'Election Official') {
+    //  this.getUserTxns()
+    // } else {
+    this.getAllTxns()
+    let self = this
+    this.urInterval = setInterval(function () {
+      self.getAllTxns()
+    }, 5000)
+    // }
   },
   methods: {
     cleanAll () {

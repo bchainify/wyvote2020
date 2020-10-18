@@ -1,0 +1,44 @@
+When
+    [Case
+        (Deposit
+            (Role "Voter Wallet 1")
+            (PK "US Constitution")
+            (Token "Presidential Election" "PE")
+            (Constant 2)
+        )
+        (When
+            [Case
+                (Choice
+                    (ChoiceId
+                        "Canditate Selection"
+                        (Role "Voter Wallet 1")
+                    )
+                    [Bound 1 2]
+                )
+                (If
+                    (ValueGE
+                        (ChoiceValue
+                            (ChoiceId
+                                "Canditate Selection"
+                                (Role "Voter Wallet 1")
+                            ))
+                        (Constant 2)
+                    )
+                    (Pay
+                        (PK "Donald Trump")
+                        (Party (Role "Voter Wallet 1"))
+                        (Token "Presidential Election" "PE")
+                        (Constant 1)
+                        Close 
+                    )
+                    (Pay
+                        (PK "Joe Biden")
+                        (Party (Role "Voter Wallet 1"))
+                        (Token "Presidential Election" "PE")
+                        (Constant 1)
+                        Close 
+                    )
+                )]
+            4 Close 
+        )]
+    2 Close 
