@@ -6,9 +6,9 @@ Our project whitepaper can be found here:
 [click here](https://github.com/foolink_paper.pdf)
 
 ## Technology-Stack:
-* Front-End Development: 
-* Blockchain Development:  
-* Smart Contract Development:
+* Front-End Development: HTML, CSS, VueJS, Vuetify, ReactJS, 
+* Blockchain Development:  SimbaChain, 
+* Smart Contract Development: Remix
 
 
 ## Voter Authentication :
