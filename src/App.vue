@@ -179,7 +179,7 @@
               </md-list-item>
             </router-link>
             <md-divider></md-divider>
-          <md-list-item href="https://simbachain.com/contact/" target="_blank" @click="menuVisible = false">
+          <md-list-item href="https://github.com/bchainify/wyvote2020/wiki" target="_blank" @click="menuVisible = false">
               <md-icon>contact_support</md-icon>
               <span class="md-list-item-text">Contact Us</span>
             </md-list-item>
