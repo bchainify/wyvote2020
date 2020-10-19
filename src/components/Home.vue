@@ -26,7 +26,7 @@
           </small>
           <br>
           <small class="margin-txt">
-            2. #todo
+            2. Logout
           </small>
           <br>
         </div>
@@ -45,7 +45,7 @@
           </small>
           <br>
           <small class="margin-txt">
-            2. #todo
+            2. #todo for voter
           </small>
           <br>
           <br>

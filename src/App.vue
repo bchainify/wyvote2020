@@ -13,12 +13,11 @@
       <md-card md-with-hover class="login-card unselectable">
         <md-card-header>
           <md-card-header-text>
-            <div class="md-title">WY Vote 2021 & Beyond!</div>
+            <div class="md-title">WY Vote - Admin</div>
             <br>
-            <br>
-            <div class="md-subhead" v-if="!loginWarn">Please select an account & Login!</div>
+            <div class="md-subhead" v-if="!loginWarn">Please select an option & Login below!</div>
             <div class="md-subhead" v-if="loginWarn">
-              <strong style="color:#f44336;">Please select an account & Login!</strong>
+              <strong style="color:#f44336;">Please select an option & Login!</strong>
             </div>
           </md-card-header-text>
           <md-card-media md-medium>
@@ -27,11 +26,18 @@
         </md-card-header>
 
         <md-card-content>
-          <br>
+          <div class="md-layout-item md-size-100">
+            <strong style="color:#fff176;">Election Official</strong>
+          </div>
+          <md-radio v-model="role" value="eo1">
+            <md-avatar class="role-icon">
+              <img :src="getImgUrl('eo1')" alt="EO">
+            </md-avatar>
+            {{eo1.name}}
+          </md-radio>
           <div class="md-layout-item md-size-100">
             <strong style="color:#fff176;">Candidates</strong>
           </div>
-
           <md-radio v-model="role" value="c1">
             <md-avatar class="role-icon">
               <img :src="getImgUrl('c1')" alt="C">
@@ -44,7 +50,6 @@
             </md-avatar>
             {{c2.name}}
           </md-radio>
-
           <md-radio v-model="role" value="c3">
             <md-avatar class="role-icon">
               <img :src="getImgUrl('c1')" alt="C">
@@ -56,17 +61,6 @@
               <img :src="getImgUrl('c2')" alt="C">
             </md-avatar>
             {{c4.name}}
-          </md-radio>
-
-          <div class="md-layout-item md-size-100">
-            <strong style="color:#fff176;">Election Official</strong>
-          </div>
-
-          <md-radio v-model="role" value="eo1">
-            <md-avatar class="role-icon">
-              <img :src="getImgUrl('eo1')" alt="EO">
-            </md-avatar>
-            {{eo1.name}}
           </md-radio>
         </md-card-content>
         <md-card-actions>
@@ -217,7 +211,7 @@
   @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
   .login-card {
-    max-width: 300px;
+    max-width: 350px;
     margin: 0 auto;
   }
   .empty-div {
@@ -339,37 +333,36 @@ export default {
       key: null,
       imgSrc: null
     },
-
-    c1: {
-      name: 'Abraham Lincoln',
-      title: 'Candidate',
-      code: 'c1',
-      key: 'impose state body frost drink cancel vacant annual vague green museum plug',
-      imgSrc: './assets/img/c1.png'},
-    c2: {
-      name: 'John C. Breckinridge',
-      title: 'Candidate',
-      code: 'c2',
-      key: 'figure upset scare vicious horn among now wrap dad nominee plastic lunar',
-      imgSrc: './assets/img/c2.png'},
-    c3: {
-      name: 'John Bell',
-      title: 'Candidate',
-      code: 'c3',
-      key: 'this forever upset scare vicious horn among now wrap dad major session',
-      imgSrc: './assets/img/c2.png'},
-    c4: {
-      name: 'Stephen A. Douglas',
-      title: 'Candidate',
-      code: 'c4',
-      key: 'war fort six from among now wrap mom civil states battle ticket former',
-      imgSrc: './assets/img/c2.png'},
     eo1: {
       name: 'Wyoming State Officer 1',
       title: 'Election Official',
       code: 'eo1',
       key: 'dwarf coyote unfold oxygen promote potato rate friend place dignity ribbon render',
-      imgSrc: './assets/img/eo1.png'}
+      imgSrc: './assets/img/eo1.png'},
+    c1: {
+      name: 'Republican - Trump & Pence',
+      title: 'Candidate',
+      code: 'c1',
+      key: 'impose state body frost drink cancel vacant annual vague green museum plug',
+      imgSrc: './assets/img/c1.png'},
+    c2: {
+      name: 'Democratic - Biden & Harris',
+      title: 'Candidate',
+      code: 'c2',
+      key: 'figure upset scare vicious horn among now wrap dad nominee plastic lunar',
+      imgSrc: './assets/img/c2.png'},
+    c3: {
+      name: 'Libertarian - Jorgensen & Cohen',
+      title: 'Candidate',
+      code: 'c3',
+      key: 'this forever upset scare vicious horn among now wrap dad major session',
+      imgSrc: './assets/img/c2.png'},
+    c4: {
+      name: 'Independent - Pierce & Ballard',
+      title: 'Candidate',
+      code: 'c4',
+      key: 'war fort six from among now wrap mom civil states battle ticket former',
+      imgSrc: './assets/img/c2.png'}
   }),
   methods: {
     login () {
