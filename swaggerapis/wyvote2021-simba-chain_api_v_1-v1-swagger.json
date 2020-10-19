@@ -1,0 +1,1415 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "SimbaChain API V1",
+    "description" : "A description of this API goes here.",
+    "termsOfService" : "https://www.simbachain.com/policies/terms/",
+    "contact" : {
+      "email" : "contact@simbachain.com"
+    },
+    "license" : {
+      "name" : "",
+      "url" : "https://www.simbachain.com/policies/licence"
+    },
+    "version" : "v1",
+    "x-simba-attrs" : {
+      "api_name" : "election2020",
+      "name" : "election2020",
+      "faucet" : "http://circle-of-life:7755",
+      "type" : "simbachain.com",
+      "network" : "circle-of-life",
+      "simba_faucet" : true,
+      "poa" : false,
+      "network_type" : "ethereum",
+      "methods" : {
+        "addCandidate" : {
+          "parameters" : {
+            "_name" : {
+              "type" : "string",
+              "title" : "_name"
+            }
+          }
+        },
+        "authorized" : {
+          "parameters" : {
+            "_person" : {
+              "type" : "address",
+              "title" : "_person"
+            }
+          }
+        },
+        "candidates" : {
+          "parameters" : {
+            "" : {
+              "type" : "uint256",
+              "title" : ""
+            }
+          }
+        },
+        "Election2020" : {
+          "parameters" : {
+            "_name" : {
+              "type" : "string",
+              "title" : "_name"
+            }
+          }
+        },
+        "getNumCandidate" : {
+          "parameters" : { }
+        },
+        "owner" : {
+          "parameters" : { }
+        },
+        "totalVotes" : {
+          "parameters" : { }
+        },
+        "vote" : {
+          "parameters" : {
+            "_voteIndex" : {
+              "type" : "uint256",
+              "title" : "_voteIndex"
+            }
+          }
+        },
+        "voters" : {
+          "parameters" : {
+            "" : {
+              "type" : "address",
+              "title" : ""
+            }
+          }
+        },
+        "WYElection" : {
+          "parameters" : { }
+        }
+      }
+    }
+  },
+  "host" : "api.simbachain.com",
+  "schemes" : [ "https" ],
+  "basePath" : "/v1/election2020",
+  "consumes" : [ "application/json", "application/vnd.api+json" ],
+  "produces" : [ "application/json" ],
+  "securityDefinitions" : {
+    "api_key" : {
+      "in" : "header",
+      "name" : "APIKEY",
+      "type" : "apiKey"
+    }
+  },
+  "security" : [ {
+    "api_key" : [ ]
+  } ],
+  "paths" : {
+    "/addCandidate/" : {
+      "get" : {
+        "operationId" : "addCandidate_list",
+        "summary" : "List or search transactions for \"addCandidate\"",
+        "description" : "List or search transactions for \"addCandidate\"",
+        "parameters" : [ {
+          "name" : "_name_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on _name",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_name_contains",
+          "in" : "query",
+          "description" : "_name contains string",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to addCandidate",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "addCandidate",
+        "summary" : "Execute the \"addCandidate\" method on the smart contract",
+        "description" : "Execute the \"addCandidate\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_name",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to addCandidate",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/authorized/" : {
+      "get" : {
+        "operationId" : "authorized_list",
+        "summary" : "List or search transactions for \"authorized\"",
+        "description" : "List or search transactions for \"authorized\"",
+        "parameters" : [ {
+          "name" : "_person_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on _person",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_person_contains",
+          "in" : "query",
+          "description" : "_person contains string",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to authorized",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "authorized",
+        "summary" : "Execute the \"authorized\" method on the smart contract",
+        "description" : "Execute the \"authorized\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_person",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to authorized",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/candidates/" : {
+      "get" : {
+        "operationId" : "candidates_list",
+        "summary" : "List or search transactions for \"candidates\"",
+        "description" : "List or search transactions for \"candidates\"",
+        "parameters" : [ {
+          "name" : "_lt",
+          "in" : "query",
+          "description" : " is less than",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_lte",
+          "in" : "query",
+          "description" : " is less than or equal",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_gt",
+          "in" : "query",
+          "description" : " is greater than",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_gte",
+          "in" : "query",
+          "description" : " is greater than or equal",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_equals",
+          "in" : "query",
+          "description" : " is equal to",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to candidates",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "candidates",
+        "summary" : "Execute the \"candidates\" method on the smart contract",
+        "description" : "Execute the \"candidates\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to candidates",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/Election2020/" : {
+      "get" : {
+        "operationId" : "Election2020_list",
+        "summary" : "List or search transactions for \"Election2020\"",
+        "description" : "List or search transactions for \"Election2020\"",
+        "parameters" : [ {
+          "name" : "_name_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on _name",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_name_contains",
+          "in" : "query",
+          "description" : "_name contains string",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to Election2020",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "Election2020",
+        "summary" : "Execute the \"Election2020\" method on the smart contract",
+        "description" : "Execute the \"Election2020\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_name",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to Election2020",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/getNumCandidate/" : {
+      "get" : {
+        "operationId" : "getNumCandidate_list",
+        "summary" : "List or search transactions for \"getNumCandidate\"",
+        "description" : "List or search transactions for \"getNumCandidate\"",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to getNumCandidate",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "getNumCandidate",
+        "summary" : "Execute the \"getNumCandidate\" method on the smart contract",
+        "description" : "Execute the \"getNumCandidate\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to getNumCandidate",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/owner/" : {
+      "get" : {
+        "operationId" : "owner_list",
+        "summary" : "List or search transactions for \"owner\"",
+        "description" : "List or search transactions for \"owner\"",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to owner",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "owner",
+        "summary" : "Execute the \"owner\" method on the smart contract",
+        "description" : "Execute the \"owner\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to owner",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/totalVotes/" : {
+      "get" : {
+        "operationId" : "totalVotes_list",
+        "summary" : "List or search transactions for \"totalVotes\"",
+        "description" : "List or search transactions for \"totalVotes\"",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to totalVotes",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "totalVotes",
+        "summary" : "Execute the \"totalVotes\" method on the smart contract",
+        "description" : "Execute the \"totalVotes\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to totalVotes",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/vote/" : {
+      "get" : {
+        "operationId" : "vote_list",
+        "summary" : "List or search transactions for \"vote\"",
+        "description" : "List or search transactions for \"vote\"",
+        "parameters" : [ {
+          "name" : "_voteIndex_lt",
+          "in" : "query",
+          "description" : "_voteIndex is less than",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_lte",
+          "in" : "query",
+          "description" : "_voteIndex is less than or equal",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_gt",
+          "in" : "query",
+          "description" : "_voteIndex is greater than",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_gte",
+          "in" : "query",
+          "description" : "_voteIndex is greater than or equal",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_equals",
+          "in" : "query",
+          "description" : "_voteIndex is equal to",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to vote",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "vote",
+        "summary" : "Execute the \"vote\" method on the smart contract",
+        "description" : "Execute the \"vote\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex",
+          "in" : "formData",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to vote",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/voters/" : {
+      "get" : {
+        "operationId" : "voters_list",
+        "summary" : "List or search transactions for \"voters\"",
+        "description" : "List or search transactions for \"voters\"",
+        "parameters" : [ {
+          "name" : "_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on ",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_contains",
+          "in" : "query",
+          "description" : " contains string",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to voters",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "voters",
+        "summary" : "Execute the \"voters\" method on the smart contract",
+        "description" : "Execute the \"voters\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to voters",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/WYElection/" : {
+      "get" : {
+        "operationId" : "WYElection_list",
+        "summary" : "List or search transactions for \"WYElection\"",
+        "description" : "List or search transactions for \"WYElection\"",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to WYElection",
+            "schema" : {
+              "title" : "Transactions",
+              "description" : "Returned Transactions",
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "contract_methods" ]
+      },
+      "post" : {
+        "operationId" : "WYElection",
+        "summary" : "Execute the \"WYElection\" method on the smart contract",
+        "description" : "Execute the \"WYElection\" method on the smart contract. The 6 file limit is only when using Swagger. We will have to update to Swagger 3 to support file arrays.",
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "formData",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "REMOTEUSER",
+          "in" : "header",
+          "description" : "Remote User ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "APIKEY",
+          "in" : "header",
+          "description" : "API Key",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to WYElection",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "consumes" : [ "multipart/form-data", "application/x-www-form-urlencoded" ],
+        "produces" : [ "application/json" ],
+        "tags" : [ "contract_methods" ]
+      }
+    },
+    "/transaction/" : {
+      "get" : {
+        "operationId" : "transaction_list",
+        "summary" : "List or search transactions",
+        "description" : "List or search transactions",
+        "parameters" : [ {
+          "name" : "method",
+          "in" : "query",
+          "description" : "The method name or ID. \"`__any__`\" will only show txns on methods",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "status",
+          "in" : "query",
+          "description" : "The status of the transaction",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "noContractTxn",
+          "in" : "query",
+          "description" : "Don't show the contract creation txn. `1` to hide.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_name_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on _name",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_name_contains",
+          "in" : "query",
+          "description" : "_name contains string",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_person_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on _person",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_person_contains",
+          "in" : "query",
+          "description" : "_person contains string",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_exact",
+          "in" : "query",
+          "description" : "case insensitive exact match on ",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_contains",
+          "in" : "query",
+          "description" : " contains string",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_lt",
+          "in" : "query",
+          "description" : "_voteIndex is less than",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_lte",
+          "in" : "query",
+          "description" : "_voteIndex is less than or equal",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_gt",
+          "in" : "query",
+          "description" : "_voteIndex is greater than",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_gte",
+          "in" : "query",
+          "description" : "_voteIndex is greater than or equal",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "_voteIndex_equals",
+          "in" : "query",
+          "description" : "_voteIndex is equal to",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to search",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/transaction/{txn_id}/" : {
+      "get" : {
+        "operationId" : "transaction_read",
+        "summary" : "Retrieve a transaction",
+        "description" : "Retrieve a transaction",
+        "parameters" : [ {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to search",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      },
+      "post" : {
+        "operationId" : "transaction_create",
+        "summary" : "Submit a signed transaction",
+        "description" : "Submit a signed transaction",
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "title" : "SubmitTransaction",
+            "required" : [ "payload" ],
+            "type" : "object",
+            "properties" : {
+              "payload" : {
+                "title" : "payload",
+                "description" : "The signed transaction",
+                "type" : "object"
+              }
+            }
+          }
+        }, {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to submit transaction",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "status" : {
+                  "type" : "string",
+                  "default" : "submitted"
+                }
+              }
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/balance/{account}/" : {
+      "get" : {
+        "operationId" : "balance_get",
+        "summary" : "Retrieve account balance",
+        "description" : "Retrieve account balance",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "path",
+          "description" : "The Account",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to search",
+            "schema" : {
+              "title" : "Balance",
+              "type" : "object",
+              "properties" : {
+                "amount" : {
+                  "title" : "amount",
+                  "description" : "The balance",
+                  "type" : "number"
+                },
+                "currency" : {
+                  "title" : "currency",
+                  "description" : "The currency",
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "tags" : [ "balance" ]
+      },
+      "post" : {
+        "operationId" : "balance_post",
+        "summary" : "Request funding",
+        "description" : "Request funding",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "path",
+          "description" : "account",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "RequestBalance",
+          "in" : "body",
+          "schema" : {
+            "title" : "RequestBalance",
+            "required" : [ "value", "currency" ],
+            "type" : "object",
+            "properties" : {
+              "value" : {
+                "title" : "value",
+                "description" : "value",
+                "type" : "string"
+              },
+              "currency" : {
+                "title" : "currency",
+                "description" : "currency",
+                "type" : "string"
+              }
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response to balance request",
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "txnId" : {
+                  "title" : "txnId",
+                  "description" : "Transaction hash of the funding txn",
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "tags" : [ "balance" ]
+      }
+    },
+    "/transaction/{txn_id}/bundle/" : {
+      "get" : {
+        "operationId" : "transaction_bundle",
+        "summary" : "Retrieve the asset for a transaction",
+        "description" : "Retrieve the asset for a transaction",
+        "parameters" : [ {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The file containing the asset data",
+            "schema" : {
+              "description" : "The file containing the asset data",
+              "type" : "object",
+              "properties" : {
+                "manifest" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : {
+                      "data" : {
+                        "title" : "data",
+                        "type" : "string"
+                      },
+                      "encoding" : {
+                        "title" : "encoding",
+                        "type" : "string"
+                      },
+                      "mimetype" : {
+                        "title" : "mimetype",
+                        "type" : "string"
+                      },
+                      "name" : {
+                        "title" : "name",
+                        "type" : "string"
+                      },
+                      "size" : {
+                        "title" : "size",
+                        "type" : "integer"
+                      }
+                    }
+                  }
+                },
+                "meta" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/transaction/{txn_id}/bundle_raw/" : {
+      "get" : {
+        "operationId" : "transaction_bundle_raw",
+        "summary" : "Retrieve the asset for a transaction",
+        "description" : "Retrieve the asset for a transaction",
+        "parameters" : [ {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The file containing the asset data",
+            "schema" : {
+              "description" : "The file containing the asset data",
+              "type" : "file"
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/transaction/{txn_id}/file/{file_index}/" : {
+      "get" : {
+        "operationId" : "transaction_bundle_file",
+        "summary" : "Retrieve the file from the bundle for a transaction",
+        "description" : "Retrieve the asset for a transaction",
+        "parameters" : [ {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "file_index",
+          "in" : "path",
+          "description" : "The files index in the bundle",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The file containing the asset data",
+            "schema" : {
+              "description" : "The file containing the asset data",
+              "type" : "file"
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/transaction/{txn_id}/fileByName/{file_name}/" : {
+      "get" : {
+        "operationId" : "transaction_bundle_file_by_name",
+        "summary" : "Retrieve the file from the bundle for a transaction",
+        "description" : "Retrieve the asset for a transaction",
+        "parameters" : [ {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "file_name",
+          "in" : "path",
+          "description" : "The files name in the bundle",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The file containing the asset data",
+            "schema" : {
+              "description" : "The file containing the asset data",
+              "type" : "file"
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/transaction/{txn_id}/bundle_manifest/" : {
+      "get" : {
+        "operationId" : "transaction_bundle_manifest",
+        "summary" : "Retrieve the file from the bundle for a transaction",
+        "description" : "Retrieve the asset for a transaction",
+        "parameters" : [ {
+          "name" : "txn_id",
+          "in" : "path",
+          "description" : "A Transaction ID or Transaction Hash",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "no_files",
+          "in" : "query",
+          "description" : "If true, doesn't return the base 64 encoded files (will become default in the future)",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Manifest",
+            "schema" : {
+              "description" : "The Manifest",
+              "type" : "object"
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    },
+    "/methods/" : {
+      "get" : {
+        "operationId" : "methods_list",
+        "summary" : "Retrieve the methods for this app",
+        "description" : "Retrieve the methods for this app",
+        "responses" : {
+          "200" : {
+            "description" : "List of methods",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Method"
+              }
+            }
+          }
+        },
+        "tags" : [ "operations" ]
+      }
+    }
+  },
+  "definitions" : {
+    "Transaction" : {
+      "required" : [ "payload", "timestamp", "application", "organisation", "group", "member", "smart_contract", "adapter", "bytes_stored_on_blockchain", "bundle", "data_store" ],
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "title" : "Id",
+          "type" : "string",
+          "readOnly" : true
+        },
+        "parent_id" : {
+          "title" : "Parent id",
+          "type" : "string",
+          "minLength" : 1,
+          "x-nullable" : true
+        },
+        "method" : {
+          "type" : "string",
+          "title" : "Method",
+          "x-nullable" : true
+        },
+        "payload" : {
+          "title" : "Payload",
+          "type" : "string"
+        },
+        "receipt" : {
+          "title" : "Receipt",
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "timestamp" : {
+          "title" : "Timestamp",
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "application" : {
+          "type" : "string",
+          "title" : "Application"
+        },
+        "organisation" : {
+          "type" : "string",
+          "title" : "Organisation"
+        },
+        "group" : {
+          "type" : "string",
+          "title" : "Group"
+        },
+        "member" : {
+          "type" : "string",
+          "title" : "Member"
+        },
+        "user" : {
+          "title" : "User",
+          "type" : "string",
+          "readOnly" : true
+        },
+        "transaction_hash" : {
+          "title" : "Transaction hash",
+          "type" : "string",
+          "minLength" : 1,
+          "x-nullable" : true
+        },
+        "smart_contract" : {
+          "type" : "string",
+          "title" : "Smart contract"
+        },
+        "adapter" : {
+          "type" : "string",
+          "title" : "Adapter"
+        },
+        "is_asset" : {
+          "title" : "Is asset",
+          "type" : "boolean"
+        },
+        "bytes_stored_on_blockchain" : {
+          "title" : "Bytes stored on blockchain",
+          "type" : "integer",
+          "maximum" : 9223372036854776000,
+          "minimum" : -9223372036854776000
+        },
+        "bundle" : {
+          "type" : "string",
+          "title" : "Bundle"
+        },
+        "data_store" : {
+          "type" : "string",
+          "title" : "Data store"
+        },
+        "bytes_stored_on_datastore" : {
+          "title" : "Bytes stored on datastore",
+          "type" : "integer",
+          "maximum" : 9223372036854776000,
+          "minimum" : -9223372036854776000,
+          "x-nullable" : true
+        },
+        "error" : {
+          "title" : "Error",
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "error_details" : {
+          "title" : "Error details",
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "status" : {
+          "title" : "Status",
+          "type" : "string",
+          "readOnly" : true
+        },
+        "confirmations" : {
+          "title" : "Confirmations",
+          "type" : "integer",
+          "maximum" : 2147483647,
+          "minimum" : -2147483648
+        }
+      }
+    },
+    "Method" : {
+      "required" : [ "name", "smart_contract", "method_hash", "parameters" ],
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "title" : "Id",
+          "type" : "string",
+          "readOnly" : true
+        },
+        "name" : {
+          "title" : "Name",
+          "type" : "string",
+          "minLength" : 1
+        },
+        "smart_contract" : {
+          "type" : "string",
+          "title" : "Smart contract"
+        },
+        "method_hash" : {
+          "title" : "Method hash",
+          "type" : "string",
+          "minLength" : 1
+        },
+        "parameters" : {
+          "title" : "Parameters",
+          "type" : "string"
+        },
+        "funcName" : {
+          "title" : "FuncName",
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "payable" : {
+          "title" : "Payable",
+          "type" : "boolean"
+        },
+        "stateMutability" : {
+          "title" : "StateMutability",
+          "type" : "string",
+          "x-nullable" : true
+        },
+        "return_type" : {
+          "title" : "Return type",
+          "type" : "string",
+          "x-nullable" : true
+        }
+      }
+    }
+  }
+}
