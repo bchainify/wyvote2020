@@ -1,4 +1,6 @@
 ![](mktg/Admin.App.png)
+![](mktg/candidates_demo.gif)
+![](mktg/election_official_demo.gif)
 # WYVote2020 Admin Application
 
 
