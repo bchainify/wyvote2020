@@ -1,9 +1,14 @@
+![](mktg/Admin.App.png)
+# WYVote2020 Admin Application
+
+
+
 # WYVote2020 & beyond!
 WyoHackathon 2020 block chain project
 
 ## Whitepaper
 Our project whitepaper can be found here:
-[click here](https://github.com/foolink_paper.pdf)
+[click here](https://github.com/bchainify/wyvote2020/blob/main/mktg/Whitepaper-WyVote2021%20%26%20Beyond.pdf)
 
 ## Technology-Stack:
 * Front-End Development: HTML, CSS, VueJS, Vuetify, ReactJS, 
@@ -11,52 +16,18 @@ Our project whitepaper can be found here:
 * Smart Contract Development: Remix
 
 
-## Voter Authentication :
-* The voter authentication is....<insert details here>
-
-## Vote Casting and Blockchain REST API Development:
-* Using a unique voterID and auth token, the voter will cast a vote for any one of the candidate selections.
-* After vote casting there are n different steps are carried out for which we have designed a special REST API:
-  1. Transaction Verification
-  2. Ballot Tabulation
-  3. 
-  4.
-
-## Network Design:
-* A peer to peer distributed network on which the blockchain architecture works.
-* A Web Socket request API for broadcasting the all the requests into P2P network.
-* Handling concurrency by using a mutex lock mechanism.
+## What it Does:
+* Election officials create a smart contract for a tokenized election ballot.
+* The Election Official (smart contract owner) adds candidates to the election ballot
+* The Election Official (smart contract owner) adds authorized voters so they can vote on the election ballot
+* Voters register with a wallet so that they can cast a secure and private vote
+* Voters then cast their vote for a selected candidate
+* Voters get a confirmed transaction ID that is a unique hash on the blockchain, confirming their vote was cast
+* Voters can also sign up for SMS or email notification to confirm their vote
+* Election officials can view vote tally by a candidate or by overall ballot
+* Election officials can end the election ballot, locking it from further transactions
 
 
-## Architectural Flow Diagrams
-![](https://foodiagrams_site.com/)
-
-
-## Project setup to run app
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run dev
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Demo App
+See [Admin Portal](https://admin.bchainify.dev).
 
